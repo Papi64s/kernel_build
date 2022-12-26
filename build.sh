@@ -20,8 +20,8 @@ HOME_DIR="craftrom"
 # Telegram setup
 push_message() {
     curl -s -X POST \
-         https://api.telegram.org/bot5579959772:AAHJ1cvfipl05kxYhNQBvLy7b60vGmeQSRE/sendMessage \
-        -d chat_id="-1001695676652" \
+         https://api.telegram.org/bot5759949181:AAH-yOhz9OdUsFeb-82v92x5sy-o5DNV3UI/sendMessage \
+        -d chat_id="--1001590833950" \
         -d text="$1" \
         -d "parse_mode=html" \
         -d "disable_web_page_preview=true"
@@ -29,8 +29,8 @@ push_message() {
 
 push_document() {
     curl -s -X POST \
-         https://api.telegram.org/bot5579959772:AAHJ1cvfipl05kxYhNQBvLy7b60vGmeQSRE/sendDocument \
-        -F chat_id="-1001695676652" \
+         https://api.telegram.org/bot5759949181:AAH-yOhz9OdUsFeb-82v92x5sy-o5DNV3UI/sendDocument \
+        -F chat_id="-100159083395" \
         -F document=@"$1" \
         -F caption="$2" \
         -F "parse_mode=html" \
@@ -41,7 +41,7 @@ push_message "<b>Build bot is running.</b>
 <b>Date:</b> <code>$DATE</code>"
 cd $HOME/$HOME_DIR
 
-for device in onclite olives surya; do
+for device in onclite ; do
 
     mkdir -p $HOME/$HOME_DIR/chidori/$device
     
@@ -52,12 +52,12 @@ for device in onclite olives surya; do
 	# Push message if build started
 	push_message "- Start building kernel for <b><code>$device</code></b>
 	<b>BuildDate:</b> <code>$BUILD_DATE</code>"
-	cd $HOME/$HOME_DIR/chidori/$device 
+	cd $HOME/$HOME_DIR/JFla-Karamel/$device 
 	bash build.sh -n | tee $LOG
 		
 	echo -e "$blue --- Uploading to SourceForge *.zip. $nocol"
 	push_message "- Start uploading to SourceForge <i>*.zip</i> from <b><code>$device</code></b>"
-	scp $HOME/$HOME_DIR/chidori/$device/*-signed.zip melles1991@frs.sourceforge.net:/home/frs/project/exodusos/Chidori_Kernel/$device/nightly
+	scp $HOME/$HOME_DIR/chidori/$device/*-signed.zip Risti699@frs.sourceforge.net:/home/frs/project/jfla-test-tmp/JFla-Test
 	
 	push_document "$LOG" "
 	<b>Kernel for <code>$device</code> compiled succesfully!</b>
